@@ -11,7 +11,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 
 // Listen to all GET requests under "/slack/events/"
-app.get("/slack/events/:event", async (req, res) => {
+app.post("/slack/events/:event", async (req, res) => {
   const { event } = req.params; // Extract dynamic part from URL (e.g., 'standup')
 
   if (event === "standup") {
