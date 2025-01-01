@@ -1,8 +1,8 @@
 import express from "express";
 import axios from "axios";
 
-const CHANNEL_ID = "process.env.CHANNEL_ID";
-const SLACK_BOT_TOKEN = "process.env.SLACK_BOT_TOKEN";
+const CHANNEL_ID = process.env.CHANNEL_ID;
+const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN;
 
 
 const app = express();
