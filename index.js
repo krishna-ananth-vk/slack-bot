@@ -38,7 +38,10 @@ app.get("/slack/events/:event", async (req, res) => {
         console.error("Slack API Error:", response.data.error);
         return res
           .status(500)
-          .json({ message: "Failed to send message to Slack." });
+          .json({
+            message: "Failed to send message to Slack.",
+            channel: CHANNEL_ID,
+          });
       }
 
       return res.json({
@@ -47,7 +50,12 @@ app.get("/slack/events/:event", async (req, res) => {
       });
     } catch (err) {
       console.error("Server Error:", err);
-      return res.status(500).json({ message: "An unexpected error occurred." });
+      return res
+        .status(500)
+        .json({
+          message: "An unexpected error occurred.",
+          channel: CHANNEL_ID,
+        });
     }
   } else {
     // Handle unknown or unsupported events
