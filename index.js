@@ -4,7 +4,7 @@ import axios from "axios";
 const CHANNEL_ID = process.env.CHANNEL_ID;
 const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN;
 
-
+const PORT = process.env.PORT || 4000;
 const app = express();
 
 // Use middleware to parse URL-encoded data (if needed)
@@ -36,12 +36,10 @@ app.get("/slack/events/:event", async (req, res) => {
 
       if (!response.data.ok) {
         console.error("Slack API Error:", response.data.error);
-        return res
-          .status(500)
-          .json({
-            message: "Failed to send message to Slack.",
-            channel: CHANNEL_ID,
-          });
+        return res.status(500).json({
+          message: "Failed to send message to Slack.",
+          channel: CHANNEL_ID,
+        });
       }
 
       return res.json({
@@ -50,12 +48,10 @@ app.get("/slack/events/:event", async (req, res) => {
       });
     } catch (err) {
       console.error("Server Error:", err);
-      return res
-        .status(500)
-        .json({
-          message: "An unexpected error occurred.",
-          channel: CHANNEL_ID,
-        });
+      return res.status(500).json({
+        message: "An unexpected error occurred.",
+        channel: CHANNEL_ID,
+      });
     }
   } else {
     // Handle unknown or unsupported events
@@ -66,5 +62,4 @@ app.get("/slack/events/:event", async (req, res) => {
 });
 
 // Start the server
-const PORT = 4000;
 app.listen(PORT, () => console.log(`Slack bot is running on port ${PORT}`));
